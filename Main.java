@@ -2,7 +2,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -39,8 +38,11 @@ public class Main {
            System.out.println(currentDirectory.getAbsolutePath());
         }else if(command.equals("cd")){
             String destination = parts[1];
-            if(destination.startsWith("~")){
-                destination = System.getProperty("user.home")+ destination.substring(1);
+            String home = System.getenv("HOME");
+            if(destination.equals("~")){
+                destination = home;
+            }else if(destination.startsWith("~")){
+                destination = home + destination.substring(1);
             }
             File newDirectory = new File(destination);
             if (!newDirectory.isAbsolute()) {
